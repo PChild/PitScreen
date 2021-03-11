@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import SettingsPage from "./SettingsPage";
 import MenuBar from "./MenuBar";
 import TwitchPage from "./TwitchPage";
+import AwardsSlides from "./AwardsSlides";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -26,8 +27,9 @@ export default function App() {
   return (
     <main className={classes.main}>
       <MenuBar />
-      <SettingsPage />
+      {/* <SettingsPage /> */}
       {/* <TwitchPage /> */}
+      <AwardsSlides />
     </main>
   );
 }
