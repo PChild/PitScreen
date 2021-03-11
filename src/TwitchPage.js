@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
 import { TwitchEmbed } from "react-twitch-embed";
 
 export default function TwitchPage() {

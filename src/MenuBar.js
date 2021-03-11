@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -18,85 +18,77 @@ import PanoramaIcon from "@material-ui/icons/Panorama";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
+import AppContext from "./AppContext";
 
 const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 300,
-  },
+    list: {
+        width: 300,
+    },
 }));
 
 export default function MenuBar() {
-  const classes = useStyles();
-  const pages = [
-    "settings",
-    "prematch",
-    "schedule",
-    "outreach",
-    "robot",
-    "stream",
-    "logo",
-  ];
-  const pageTitles = [
-    "Settings",
-    "Match Preview",
-    "Match Schedule",
-    "Outreach Slides",
-    "Robot Slides",
-    "Event Stream",
-    "Logo Screen",
-  ];
-  const pageIcons = [
-    <SettingsIcon />,
-    <AssignmentIcon />,
-    <FormatListNumberedIcon />,
-    <EmojiPeopleIcon />,
-    <BuildIcon />,
-    <VideocamIcon />,
-    <PanoramaIcon />,
-  ];
+    const menuContext = useContext(AppContext);
+    const classes = useStyles();
+    const pages = ["settings", "prematch", "schedule", "outreach", "robot", "stream", "logo"];
+    const pageTitles = [
+        "Settings",
+        "Match Preview",
+        "Match Schedule",
+        "Outreach Slides",
+        "Robot Slides",
+        "Event Stream",
+        "Logo Screen",
+    ];
+    const pageIcons = [
+        <SettingsIcon />,
+        <AssignmentIcon />,
+        <FormatListNumberedIcon />,
+        <EmojiPeopleIcon />,
+        <BuildIcon />,
+        <VideocamIcon />,
+        <PanoramaIcon />,
+    ];
 
-  const [currentPage, setCurrentPage] = useState("settings");
-  const [drawerVis, setDrawer] = useState(false);
+    const [drawerVis, setDrawer] = useState(false);
 
-  const changePage = (pageName) => {
-    setDrawer(false);
-    setCurrentPage(pageName);
-  };
+    const changePage = (pageName) => {
+        setDrawer(false);
+        menuContext.setCurrentPage(pageName);
+        console.log(pageName, menuContext.currentPage);
+    };
 
-  return (
-    <AppBar position="relative">
-      <Toolbar>
-        <IconButton>
-          <MenuIcon onClick={() => setDrawer(true)} />
-        </IconButton>
-        <Drawer anchor="left" open={drawerVis} onClose={() => setDrawer(false)}>
-          <List className={classes.list}>
-            <ListItem>
-              <ListItemText
-                primary={<Typography variant="h5">PitScreen</Typography>}
-              />
-            </ListItem>
-            <Divider />
-            {pages.map((text, index) => (
-              <div>
-                <ListItem
-                  selected={text == currentPage}
-                  onClick={() => changePage(text)}
-                  button
-                >
-                  <ListItemIcon>{pageIcons[index]}</ListItemIcon>
-                  <ListItemText primary={pageTitles[index]} />
-                </ListItem>
-                <Divider />
-              </div>
-            ))}
-          </List>
-        </Drawer>
+    return (
+        <AppBar position="relative">
+            <Toolbar>
+                <IconButton onClick={() => setDrawer(true)}>
+                    <MenuIcon />
+                </IconButton>
+                <Drawer anchor="left" open={drawerVis} onClose={() => setDrawer(false)}>
+                    <List className={classes.list}>
+                        <ListItem>
+                            <ListItemText primary={<Typography variant="h5">PitScreen</Typography>} />
+                        </ListItem>
+                        <Divider />
+                        {pages.map((text, index) => (
+                            <div key={text}>
+                                <ListItem
+                                    selected={menuContext.currentPage == text}
+                                    onClick={() => changePage(text)}
+                                    button
+                                >
+                                    <ListItemIcon>{pageIcons[index]}</ListItemIcon>
+                                    <ListItemText primary={pageTitles[index]} />
+                                </ListItem>
+                                <Divider />
+                            </div>
+                        ))}
+                    </List>
+                </Drawer>
 
-        <Typography variant="h5" color="inherit" noWrap>
-          PitScreen
-        </Typography>
-      </Toolbar>
-    </AppBar>
-  );
+                <Typography variant="h5" color="inherit" noWrap>
+                    PitScreen
+                </Typography>
+            </Toolbar>
+        </AppBar>
+    );
 }

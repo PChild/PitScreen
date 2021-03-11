@@ -1,6 +1,6 @@
 {
-  "name": "create-react-app",
-  "version": "4.0.0",
+  "name": "pit-screen",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
