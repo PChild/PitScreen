@@ -15,7 +15,9 @@
     "material-ui-color-picker": "^3.5.1",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-google-slides": "^3.0.1",
+    "react-scripts": "latest",
+    "react-twitch-embed": "^2.1.0"
   },
   "browserslist": {
     "production": [
