@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -19,10 +20,6 @@ import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-
   list: {
     width: 300,
   },
@@ -30,66 +27,69 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuBar() {
   const classes = useStyles();
+  const pages = [
+    "settings",
+    "prematch",
+    "schedule",
+    "outreach",
+    "robot",
+    "stream",
+    "logo",
+  ];
+  const pageTitles = [
+    "Settings",
+    "Match Preview",
+    "Match Schedule",
+    "Outreach Slides",
+    "Robot Slides",
+    "Event Stream",
+    "Logo Screen",
+  ];
+  const pageIcons = [
+    <SettingsIcon />,
+    <AssignmentIcon />,
+    <FormatListNumberedIcon />,
+    <EmojiPeopleIcon />,
+    <BuildIcon />,
+    <VideocamIcon />,
+    <PanoramaIcon />,
+  ];
+
+  const [currentPage, setCurrentPage] = useState("settings");
+  const [drawerVis, setDrawer] = useState(false);
+
+  const changePage = (pageName) => {
+    setDrawer(false);
+    setCurrentPage(pageName);
+  };
 
   return (
     <AppBar position="relative">
       <Toolbar>
-        <MenuIcon className={classes.icon} />
-        <Drawer anchor="left" open={false}>
+        <IconButton>
+          <MenuIcon onClick={() => setDrawer(true)} />
+        </IconButton>
+        <Drawer anchor="left" open={drawerVis} onClose={() => setDrawer(false)}>
           <List className={classes.list}>
             <ListItem>
               <ListItemText
                 primary={<Typography variant="h5">PitScreen</Typography>}
               />
             </ListItem>
-            <ListItem selected button>
-              <ListItemIcon>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Settings Page" />
-            </ListItem>
             <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Match Preview" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <FormatListNumberedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Schedule View" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <EmojiPeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Outreach Slides" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <BuildIcon />
-              </ListItemIcon>
-              <ListItemText primary="Robot Slides" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <VideocamIcon />
-              </ListItemIcon>
-              <ListItemText primary="Event Stream" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <PanoramaIcon />
-              </ListItemIcon>
-              <ListItemText primary="Logo Screen" />
-            </ListItem>
+            {pages.map((text, index) => (
+              <div>
+                <ListItem
+                  selected={text == currentPage}
+                  onClick={() => changePage(text)}
+                  button
+                >
+                  <ListItemIcon>{pageIcons[index]}</ListItemIcon>
+                  <ListItemText primary={pageTitles[index]} />
+                </ListItem>
+                <Divider />
+              </div>
+            ))}
           </List>
         </Drawer>
 
