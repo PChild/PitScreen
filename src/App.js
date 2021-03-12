@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Fade from "@material-ui/core/Fade";
+import Slide from "@material-ui/core/Slide";
 
 import AppContext from "./AppContext";
 import SettingsPage from "./SettingsPage";
@@ -23,29 +23,39 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "flex-start",
         overflow: "hidden",
     },
+
+    slide: {
+        flex: 1,
+    },
+
+    contentPage: {
+        display: "flex",
+        width: "100vw",
+        height: "100%",
+    },
 }));
 
 export default function App() {
     const classes = useStyles();
 
     const [currentPage, setCurrentPage] = useState("settings");
-    const [outreachSlidesUrl, setOutreachUrl] = useState("");
-    const [robotSlidesUrl, setRobotUrl] = useState("");
-    const [teamLogoUrl, setLogoUrl] = useState("");
+    const [outreachUrl, setOutreachUrl] = useState("google.com");
+    const [robotUrl, setRobotUrl] = useState("apple.com");
+    const [logoUrl, setLogoUrl] = useState("reddit.com");
     const [teamNumber, setTeamNumber] = useState(401);
-    const [eventCode, setEventCode] = useState("");
-    const [primaryColor, setPrimaryColor] = useState("");
-    const [accentColor, setAccentColor] = useState("");
+    const [eventCode, setEventCode] = useState("2019chcmp");
+    const [primaryColor, setPrimaryColor] = useState("#d35401");
+    const [accentColor, setAccentColor] = useState("#fff");
 
     const appSettings = {
-        currentPage: "settings",
-        outreachSlidesUrl: "",
-        robotSlidesUrl: "",
-        teamLogoUrl: "",
-        teamNumber: 401,
-        eventCode: "2019chcmp",
-        primaryColor: "#d35401",
-        accentColor: "#fff",
+        currentPage: currentPage,
+        outreachUrl: outreachUrl,
+        robotUrl: robotUrl,
+        logoUrl: logoUrl,
+        teamNumber: teamNumber,
+        eventCode: eventCode,
+        primaryColor: primaryColor,
+        accentColor: accentColor,
         setCurrentPage,
         setOutreachUrl,
         setRobotUrl,
