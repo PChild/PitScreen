@@ -16,6 +16,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import PanoramaIcon from "@material-ui/icons/Panorama";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import PageviewIcon from "@material-ui/icons/Pageview";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "./AppContext";
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MenuBar() {
     const menuContext = useContext(AppContext);
     const classes = useStyles();
-    const pages = ["settings", "prematch", "schedule", "outreach", "robot", "stream", "logo"];
+    const pages = ["settings", "prematch", "schedule", "outreach", "robot", "stream", "logo", "cad"];
     const pageTitles = [
         "Settings",
         "Match Preview",
@@ -38,6 +39,7 @@ export default function MenuBar() {
         "Robot Slides",
         "Event Stream",
         "Logo Screen",
+        "CAD",
     ];
     const pageIcons = [
         <SettingsIcon />,
@@ -47,6 +49,7 @@ export default function MenuBar() {
         <BuildIcon />,
         <VideocamIcon />,
         <PanoramaIcon />,
+        <PageviewIcon />,
     ];
 
     const [drawerVis, setDrawer] = useState(false);
