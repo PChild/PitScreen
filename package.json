@@ -20,7 +20,8 @@
     "react-google-slides": "^3.0.1",
     "react-scripts": "latest",
     "react-twitch-embed": "^2.1.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "tba-api-client": "^1.1.1"
   },
   "browserslist": {
     "production": [

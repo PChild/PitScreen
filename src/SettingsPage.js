@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ColorPicker } from "material-ui-color";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import AppContext from "./AppContext";
+import * as TBA from "tba-api-client";
+import debounce from "lodash.debounce";
+
+const tba = new TBA.API("u8L8Gd05IPCUmwjradkV0NbM7Y5Z7hx1fQc0SPx4vj6oPqKFCNGDiwZmlAhJ6SO8");
 
 const useStyles = makeStyles((theme) => ({
     gridPad: {
@@ -22,8 +26,18 @@ const useStyles = makeStyles((theme) => ({
 export default function SettingsPage() {
     const classes = useStyles();
     const settingsContext = useContext(AppContext);
+    const [eventCode, setEventCode] = useState(settingsContext.eventCode);
 
-    const handleChange = (e) => {};
+    const onChangeDebounced = debounce((e) => {
+        tba.Event(e.target.value).then((frcEvent) => {
+            settingsContext.setEventCode(e.target.value);
+            settingsContext.setEventChannel(frcEvent.webcasts[0].channel);
+        });
+    }, 2000);
+
+    const handleInputChange = (e) => {
+        setEventCode(e.target.value), onChangeDebounced(e);
+    };
 
     return (
         <Grid container spacing={1} className={classes.gridPad}>
@@ -56,9 +70,9 @@ export default function SettingsPage() {
             <Grid item className={classes.basicSizing}>
                 <TextField
                     label="Event Code"
-                    onChange={(event) => {
-                        settingsContext.setEventCode(event.value);
-                    }}
+                    InputLabelProps={{ shrink: true }}
+                    onChange={handleInputChange}
+                    value={eventCode}
                 ></TextField>
             </Grid>
             <Grid item className={classes.basicSizing}>
@@ -73,6 +87,7 @@ export default function SettingsPage() {
             <Grid item className={classes.urlSizing}>
                 <TextField
                     fullWidth
+                    InputLabelProps={{ shrink: true }}
                     label="Awards Slideshow URL"
                     type="url"
                     value={settingsContext.outreachUrl}
@@ -84,6 +99,7 @@ export default function SettingsPage() {
             <Grid item className={classes.urlSizing}>
                 <TextField
                     fullWidth
+                    InputLabelProps={{ shrink: true }}
                     label="Robot Slideshow URL"
                     type="url"
                     value={settingsContext.robotUrl}
@@ -100,7 +116,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settingsContext.logoUrl}
                     onChange={(event) => {
-                        settingsContext.setLogoUrl(event.value);
+                        settingsContext.setLogoUrl(event.target.value);
                     }}
                 ></TextField>
             </Grid>

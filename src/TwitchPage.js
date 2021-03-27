@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TwitchEmbed } from "react-twitch-embed";
+import AppContext from "./AppContext";
 
 export default function TwitchPage() {
+    const twitchContext = useContext(AppContext);
     return (
         <TwitchEmbed
             id="player"
             allowFullscreen={false}
-            channel="SmallAnt"
+            channel={twitchContext.eventChannel}
             fontSize="small"
             height="100%"
             withChat={false}

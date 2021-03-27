@@ -57,7 +57,6 @@ export default function MenuBar() {
     const changePage = (pageName) => {
         setDrawer(false);
         menuContext.setCurrentPage(pageName);
-        console.log(pageName, menuContext.currentPage);
     };
 
     return (

@@ -9,6 +9,7 @@ import TwitchPage from "./TwitchPage";
 import AwardsSlides from "./AwardsSlides";
 import RobotSlides from "./RobotSlides";
 import CadViewer from "./CadViewer";
+import LogoPage from "./LogoPage";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -46,9 +47,10 @@ export default function App() {
     const [robotUrl, setRobotUrl] = useState(
         "https://docs.google.com/presentation/d/172oFC8-LBw0GQEymFDbTBn-ORh7wi2ByfUXrXm7H-AM"
     );
-    const [logoUrl, setLogoUrl] = useState("reddit.com");
+    const [logoUrl, setLogoUrl] = useState("https://raw.githubusercontent.com/team401/resources/master/Team/Final.png");
     const [teamNumber, setTeamNumber] = useState(401);
     const [eventCode, setEventCode] = useState("2019chcmp");
+    const [eventChannel, setEventChannel] = useState("firstchesapeake2blue");
     const [primaryColor, setPrimaryColor] = useState("#d35401");
     const [accentColor, setAccentColor] = useState("#fff");
 
@@ -59,6 +61,7 @@ export default function App() {
         logoUrl: logoUrl,
         teamNumber: teamNumber,
         eventCode: eventCode,
+        eventChannel: eventChannel,
         primaryColor: primaryColor,
         accentColor: accentColor,
         setCurrentPage,
@@ -67,6 +70,7 @@ export default function App() {
         setLogoUrl,
         setTeamNumber,
         setEventCode,
+        setEventChannel,
         setPrimaryColor,
         setAccentColor,
     };
@@ -80,6 +84,7 @@ export default function App() {
                 {currentPage == "outreach" && <AwardsSlides />}
                 {currentPage == "robot" && <RobotSlides />}
                 {currentPage == "cad" && <CadViewer />}
+                {currentPage == "logo" && <LogoPage />}
             </main>
         </AppContext.Provider>
     );
