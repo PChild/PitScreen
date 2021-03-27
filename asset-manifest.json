@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/pitscreen/static/js/main.bf400deb.chunk.js",
-    "main.js.map": "/pitscreen/static/js/main.bf400deb.chunk.js.map",
-    "runtime-main.js": "/pitscreen/static/js/runtime-main.bc3370e7.js",
-    "runtime-main.js.map": "/pitscreen/static/js/runtime-main.bc3370e7.js.map",
-    "static/js/2.574fc92e.chunk.js": "/pitscreen/static/js/2.574fc92e.chunk.js",
-    "static/js/2.574fc92e.chunk.js.map": "/pitscreen/static/js/2.574fc92e.chunk.js.map",
-    "index.html": "/pitscreen/index.html",
-    "static/js/2.574fc92e.chunk.js.LICENSE.txt": "/pitscreen/static/js/2.574fc92e.chunk.js.LICENSE.txt"
+    "main.js": "/PitScreen/static/js/main.bf400deb.chunk.js",
+    "main.js.map": "/PitScreen/static/js/main.bf400deb.chunk.js.map",
+    "runtime-main.js": "/PitScreen/static/js/runtime-main.179682b9.js",
+    "runtime-main.js.map": "/PitScreen/static/js/runtime-main.179682b9.js.map",
+    "static/js/2.2ecb6199.chunk.js": "/PitScreen/static/js/2.2ecb6199.chunk.js",
+    "static/js/2.2ecb6199.chunk.js.map": "/PitScreen/static/js/2.2ecb6199.chunk.js.map",
+    "index.html": "/PitScreen/index.html",
+    "static/js/2.2ecb6199.chunk.js.LICENSE.txt": "/PitScreen/static/js/2.2ecb6199.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bc3370e7.js",
-    "static/js/2.574fc92e.chunk.js",
+    "static/js/runtime-main.179682b9.js",
+    "static/js/2.2ecb6199.chunk.js",
     "static/js/main.bf400deb.chunk.js"
   ]
 }
