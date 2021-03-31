@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ColorPicker } from "material-ui-color";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
+import debounce from "lodash.debounce";
+
 import ColorsContext from "./ColorsContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,8 +15,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Colors() {
-    const classes = useStyles();
     const colorsContext = useContext(ColorsContext);
+    const classes = useStyles();
+    const [primary, setLocalPrimary] = useState(colorsContext.primaryColor);
+    const [accent, setLocalAccent] = useState(colorsContext.accentColor);
+    const [back, setLocalBack] = useState(colorsContext.backColor);
 
     return (
         <Grid container spacing={1} className={classes.gridPad}>
@@ -23,12 +28,19 @@ export default function Colors() {
                 <ColorPicker
                     name="accentColor"
                     label="Accent"
-                    disablePlainColor
-                    value={colorsContext.accentColor}
+                    value={accent}
                     onChange={(color) => {
-                        colorsContext.setAccentColor("#" + color.hex);
-                        console.log("#" + color);
+                        setLocalAccent(color);
+                        console.log(color);
+                        debounce((color) => {
+                            console.log("ran2");
+                            colorsContext.setAccentColor(color);
+                            console.log(colorsContext.accentColor);
+                        }, 2000);
+                        console.log(colorsContext.accentColor);
                     }}
+                    disableAlpha
+                    disablePlainColor
                 />
             </Grid>
             <Grid item>
@@ -36,10 +48,16 @@ export default function Colors() {
                 <ColorPicker
                     name="primaryColor"
                     label="Primary"
-                    value={colorsContext.primaryColor}
+                    value={primary}
                     onChange={(color) => {
-                        colorsContext.setPrimaryColor("#" + color.hex);
+                        console.log(color);
+                        if (color === Object(color)) {
+                            console.log("is array");
+                        }
+                        setLocalPrimary(color);
                     }}
+                    disableAlpha
+                    disablePlainColor
                 />
             </Grid>
             <Grid item>
@@ -51,6 +69,8 @@ export default function Colors() {
                     onChange={(color) => {
                         colorsContext.setBackColor("#" + color.hex);
                     }}
+                    disableAlpha
+                    disablePlainColor
                 />
             </Grid>
         </Grid>
