@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ColorPicker } from "material-ui-color";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import debounce from "lodash.debounce";
 
 import ColorsContext from "./ColorsContext";
 
@@ -17,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Colors() {
     const colorsContext = useContext(ColorsContext);
     const classes = useStyles();
-    const [primary, setLocalPrimary] = useState(colorsContext.primaryColor);
-    const [accent, setLocalAccent] = useState(colorsContext.accentColor);
-    const [back, setLocalBack] = useState(colorsContext.backColor);
 
     return (
         <Grid container spacing={1} className={classes.gridPad}>
@@ -28,16 +24,10 @@ export default function Colors() {
                 <ColorPicker
                     name="accentColor"
                     label="Accent"
-                    value={accent}
+                    value={colorsContext.accentColor}
                     onChange={(color) => {
-                        setLocalAccent(color);
-                        console.log(color);
-                        debounce((color) => {
-                            console.log("ran2");
-                            colorsContext.setAccentColor(color);
-                            console.log(colorsContext.accentColor);
-                        }, 2000);
-                        console.log(colorsContext.accentColor);
+                        color = color === Object(color) ? "#" + color.hex : color;
+                        colorsContext.setAccentColor(color);
                     }}
                     disableAlpha
                     disablePlainColor
@@ -48,13 +38,10 @@ export default function Colors() {
                 <ColorPicker
                     name="primaryColor"
                     label="Primary"
-                    value={primary}
+                    value={colorsContext.primaryColor}
                     onChange={(color) => {
-                        console.log(color);
-                        if (color === Object(color)) {
-                            console.log("is array");
-                        }
-                        setLocalPrimary(color);
+                        color = color === Object(color) ? "#" + color.hex : color;
+                        colorsContext.setPrimaryColor(color);
                     }}
                     disableAlpha
                     disablePlainColor
@@ -67,7 +54,8 @@ export default function Colors() {
                     label="Background"
                     value={colorsContext.backColor}
                     onChange={(color) => {
-                        colorsContext.setBackColor("#" + color.hex);
+                        color = color === Object(color) ? "#" + color.hex : color;
+                        colorsContext.setBackColor(color);
                     }}
                     disableAlpha
                     disablePlainColor
